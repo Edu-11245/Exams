@@ -36,7 +36,7 @@ h1{margin:0;font-size:clamp(38px,9vw,60px);line-height:1.15;font-weight:800}
 @keyframes rise{from{opacity:0;transform:translateY(28px) scale(.97)}to{opacity:1;transform:none}}
 
 .list{display:flex;flex-direction:column;gap:12px}
-.exam{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-radius:22px;background:linear-gradient(145deg,var(--c1),var(--c2));border:2px solid transparent;color:var(--ink);text-decoration:none;box-shadow:0 8px 22px rgba(60,80,140,.14);opacity:0;animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*90ms + 250ms);transition:transform .25s,border-color .25s,box-shadow .25s}
+.exam{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-radius:22px;background:linear-gradient(145deg,var(--c1),var(--c2));border:2px solid transparent;color:var(--ink);text-decoration:none;box-shadow:0 8px 22px rgba(60,80,140,.14);animation:rise .55s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*90ms + 250ms);transition:transform .25s,border-color .25s,box-shadow .25s}
 .exam:hover{transform:translateX(-8px) scale(1.02);box-shadow:0 16px 30px rgba(60,80,140,.24)}
 .exam .t{font-weight:600;font-size:18px;overflow-wrap:anywhere}
 .exam .go{flex-shrink:0;padding:8px 22px;border-radius:999px;background:rgba(255,255,255,.85);font-weight:600;font-size:15px;transition:background .2s,color .2s}
@@ -48,7 +48,6 @@ h1{margin:0;font-size:clamp(38px,9vw,60px);line-height:1.15;font-weight:800}
 a:focus-visible{outline:3px solid #4F8CFF;outline-offset:3px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .exam{opacity:1}
 }
 </style>
 </head>
