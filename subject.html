@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>المادة | امتحانات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#F7F9FF;--ink:#1F2A44;--mute:#5E6B8A;--c1:#DDE6FF;--c2:#B7C8FF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Readex Pro","Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;font-size:16px;line-height:1.6;padding:max(24px,env(safe-area-inset-top)) 16px max(48px,env(safe-area-inset-bottom));min-height:100vh;overflow-x:hidden;position:relative}
+
+.blob{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);opacity:.6;pointer-events:none;background:var(--c1)}
+.b1{width:420px;height:420px;top:-120px;right:-100px;animation:d1 16s ease-in-out infinite}
+.b2{width:380px;height:380px;bottom:-120px;left:-80px;background:var(--c2);animation:d2 19s ease-in-out infinite}
+@keyframes d1{50%{transform:translate(-90px,110px) scale(1.15)}}
+@keyframes d2{50%{transform:translate(110px,-90px) scale(1.1)}}
+
+main{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:18px;padding:7px 18px;border-radius:999px;background:rgba(255,255,255,.85);border:1.5px solid #DCE3F5;color:var(--mute);font-weight:600;font-size:14px;text-decoration:none;transition:transform .2s,color .2s,box-shadow .2s}
+.back:hover{color:var(--ink);transform:translateX(5px);box-shadow:0 6px 16px rgba(60,80,140,.15)}
+
+.hero{position:relative;overflow:hidden;border-radius:32px;padding:28px 26px;margin-bottom:26px;background:linear-gradient(145deg,var(--c1),var(--c2));box-shadow:0 14px 34px rgba(60,80,140,.16);animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.hero::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.3);bottom:-100px;left:-70px;animation:grow 6s ease-in-out infinite}
+@keyframes grow{50%{transform:scale(1.25)}}
+.hero>*{position:relative;z-index:1}
+.hrow{display:flex;align-items:center;gap:16px}
+.ico{font-size:58px;line-height:1;display:inline-block;animation:bob 3.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-9px) rotate(9deg)}}
+h1{margin:0;font-size:clamp(38px,9vw,60px);line-height:1.15;font-weight:800}
+.en{direction:ltr;text-align:right;opacity:.8;font-weight:600;margin:2px 0 0}
+.cnt{display:inline-block;margin-top:14px;background:rgba(255,255,255,.7);border-radius:999px;padding:2px 16px;font-size:14px;font-weight:600}
+@keyframes rise{from{opacity:0;transform:translateY(28px) scale(.97)}}
+
+.list{display:flex;flex-direction:column;gap:12px}
+.exam{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-radius:22px;background:rgba(255,255,255,.92);border:2px solid transparent;color:var(--ink);text-decoration:none;box-shadow:0 8px 22px rgba(60,80,140,.1);opacity:0;animation:rise .55s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*90ms + 250ms);transition:transform .25s,border-color .25s,box-shadow .25s}
+.exam:hover{transform:translateX(-8px);border-color:var(--c2);box-shadow:0 14px 28px rgba(60,80,140,.18)}
+.exam .t{font-weight:600;font-size:18px;overflow-wrap:anywhere}
+.exam .d{display:block;font-size:13px;color:var(--mute);direction:ltr;text-align:right;font-weight:400}
+.exam .go{flex-shrink:0;padding:8px 22px;border-radius:999px;background:linear-gradient(145deg,var(--c1),var(--c2));font-weight:600;font-size:15px;transition:background .2s,color .2s}
+.exam:hover .go{background:var(--ink);color:#fff}
+
+.none{text-align:center;padding:36px 20px;border:2.5px dashed var(--c2);border-radius:26px;background:rgba(255,255,255,.6);color:var(--mute);animation:rise .6s .2s both}
+.none .big{font-size:44px;display:block;animation:bob 3s ease-in-out infinite}
+
+a:focus-visible{outline:3px solid #4F8CFF;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .exam{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<main>
+  <a class="back" href="index.html">كل المواد</a>
+  <section class="hero" id="hero">
+    <div class="hrow"><span class="ico" id="ico" aria-hidden="true"></span><div><h1 id="ar"></h1><p class="en" id="en"></p></div></div>
+    <span class="cnt" id="cnt"></span>
+  </section>
+  <div class="list" id="list"></div>
+</main>
+
+<script src="config.js"></script>
+<script>
+const LOOK={
+  zoology:  {c:["#BFF2E6","#7EDCC4"],i:"🪱"},
+  math:     {c:["#DCD0FF","#B39BFF"],i:"➗"},
+  geology:  {c:["#FFF0A8","#FFD35C"],i:"🪨"},
+  chemistry:{c:["#FFD0E4","#FF9CC2"],i:"🧪"},
+  physics:  {c:["#BFE2FF","#7FBBFF"],i:"⚛️"},
+  critical: {c:["#FFD2C4","#FF9E8A"],i:"💡"}
+};
+const countText=n=>n===1?"امتحان واحد":n===2?"امتحانين":n<=10?n+" امتحانات":n+" امتحان";
+const id=new URLSearchParams(location.search).get("s");
+const s=SUBJECTS.find(x=>x.id===id);
+if(!s)location.replace("index.html");
+else{
+  const look=LOOK[s.id]||{c:["#DDE6FF","#B7C8FF"],i:"📘"};
+  const root=document.documentElement.style;
+  root.setProperty("--c1",look.c[0]);root.setProperty("--c2",look.c[1]);
+  document.title=s.ar+" | امتحانات";
+  document.getElementById("ico").textContent=look.i;
+  document.getElementById("ar").textContent=s.ar;
+  document.getElementById("en").textContent=s.name;
+  (async()=>{
+    let data={};
+    try{const r=await fetch("exams.json",{cache:"no-store"});data=await r.json()}catch(e){}
+    const exams=data[s.id]||[];
+    document.getElementById("cnt").textContent=exams.length?countText(exams.length):"قريباً";
+    const box=document.getElementById("list");
+    if(!exams.length){
+      const d=document.createElement("div");d.className="none";
+      const b=document.createElement("span");b.className="big";b.textContent="⏳";b.setAttribute("aria-hidden","true");
+      const p=document.createElement("p");p.textContent="مفيش امتحانات في المادة دي لسه. هتظهر هنا أول ما تتضاف.";
+      d.append(b,p);box.append(d);return;
+    }
+    exams.forEach((x,k)=>{
+      const a=document.createElement("a");a.className="exam";a.href=x.path;a.style.setProperty("--i",k);
+      const w=document.createElement("span");
+      const t=document.createElement("span");t.className="t";t.dir="auto";t.textContent=x.title;
+      w.append(t);
+      if(x.date){const d=document.createElement("span");d.className="d";d.textContent=x.date;w.append(d)}
+      const go=document.createElement("span");go.className="go";go.textContent="ابدأ";
+      a.append(w,go);box.append(a);
+    });
+  })();
+}
+</script>
+</body>
+</html>
