@@ -1,5 +1,14 @@
 {
   "zoology": [
-    { "title": "Lecture 1 Quiz", "path": "exams/zoology/lecture1.html", "date": "2026-11-06" }
+    {
+      "title": "Lecture 1 Quiz",
+      "path": "exams/zoology/lecture1.html",
+      "date": "2026-11-06"
+    },
+    {
+      "title": "lec 2 quiz",
+      "path": "exams/zoology/lec-2-quiz.html",
+      "date": "2026-11-06"
+    }
   ]
 }
