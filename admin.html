@@ -1,60 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Upload exam</title>
+<meta name="color-scheme" content="light">
+<title>إدارة الامتحانات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EEF2F5;--card:#fff;--ink:#22303C;--mute:#66747F;--line:#D3DCE4;--deep:#2F4858;--ok:#3E7C6B;--bad:#A8504A}
-@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#151C22;--card:#1E2830;--ink:#E4EAEF;--mute:#93A1AC;--line:#33424E;--deep:#BBD0DE;--ok:#7CC1A9;--bad:#E09A93}}
+:root{color-scheme:light;--bg:#F7F9FF;--ink:#1F2A44;--mute:#5E6B8A;--line:#DCE3F5;--blue:#4F8CFF;--red:#E0455F}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px 60px}
-main{max-width:520px;margin:0 auto}
-h1{font-size:26px;margin:0 0 4px;color:var(--deep)}
-.sub{color:var(--mute);margin:0 0 20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
-label{display:block;font-weight:600;margin:14px 0 6px}
-label:first-child{margin-top:0}
-input,select{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
-input:focus-visible,select:focus-visible,.btn:focus-visible{outline:3px solid #3F6B86;outline-offset:2px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Readex Pro","Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;font-size:16px;line-height:1.6;padding:max(24px,env(safe-area-inset-top)) 16px max(70px,env(safe-area-inset-bottom));position:relative;overflow-x:hidden}
+.blob{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);opacity:.5;pointer-events:none}
+.b1{width:380px;height:380px;background:#BFE9FF;top:-120px;right:-100px;animation:d1 18s ease-in-out infinite}
+.b2{width:340px;height:340px;background:#FFD1E8;bottom:-100px;left:-80px;animation:d2 21s ease-in-out infinite}
+@keyframes d1{50%{transform:translate(-80px,100px)}}
+@keyframes d2{50%{transform:translate(100px,-80px)}}
+main{position:relative;z-index:1;max-width:640px;margin:0 auto}
+h1{font-size:clamp(32px,7vw,44px);line-height:1.2;margin:0 0 4px;font-weight:800;background:linear-gradient(90deg,#4F8CFF,#9B6BFF,#FF6BA8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.back{display:inline-block;margin-bottom:20px;color:var(--mute);font-size:14px}
+.card{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:18px;box-shadow:0 8px 24px rgba(60,80,140,.1);animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.card:nth-of-type(2){animation-delay:.08s}.card:nth-of-type(3){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}}
+h2{margin:0 0 14px;font-size:20px}
+label{display:block;font-weight:600;margin:14px 0 6px;font-size:15px}
+h2+label{margin-top:0}
+input,select{font:inherit;width:100%;padding:10px 14px;border-radius:14px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .hint{font-size:13px;color:var(--mute);margin:4px 0 0}
-.btn{font:inherit;font-weight:600;background:#3F6B86;color:#fff;border:0;border-radius:10px;padding:12px 22px;cursor:pointer;margin-top:20px;width:100%}
-.btn:disabled{opacity:.6;cursor:wait}
-.msg{margin-top:14px;font-size:15px;min-height:1.4em}
-.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
-a{color:#3F6B86}
+.btn{font:inherit;font-weight:600;background:var(--blue);color:#fff;border:0;border-radius:999px;padding:11px 24px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 18px rgba(79,140,255,.4)}
+.btn:disabled{opacity:.55;cursor:wait}
+.btn.full{width:100%;margin-top:20px}
+.btn.sm{padding:6px 14px;font-size:14px}
+.btn.alt{background:#EEF2FB;color:var(--ink)}
+.btn.danger{background:#FFE8EC;color:var(--red)}
+.btn.danger:hover:not(:disabled){box-shadow:0 8px 18px rgba(224,69,95,.3)}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.head h2{margin:0}
+.sub{margin:18px 0 8px;font-weight:800;font-size:16px;color:var(--mute)}
+.row{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1.5px solid var(--line);border-radius:16px;margin-bottom:8px;background:#fff;animation:rise .4s both}
+.row .t{flex:1;min-width:0;overflow-wrap:anywhere;font-weight:600}
+.row input{padding:7px 12px}
+.empty{color:var(--mute);margin:6px 0}
+.toast{position:fixed;z-index:5;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:92vw;background:var(--ink);color:#fff;padding:11px 22px;border-radius:999px;font-size:15px;box-shadow:0 12px 30px rgba(20,30,60,.3);animation:rise .3s both}
+.toast.bad{background:var(--red)}
+.toast a{color:#BFE2FF}
+.toast[hidden]{display:none}
+@media (max-width:480px){.row{flex-wrap:wrap}.row .t{flex-basis:100%}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div class="blob b1"></div><div class="blob b2"></div>
 <main>
-  <h1>Upload exam</h1>
-  <p class="sub"><a href="index.html">رجوع للصفحة الرئيسية</a></p>
-  <div class="card">
+  <h1>إدارة الامتحانات</h1>
+  <a class="back" href="index.html">رجوع للصفحة الرئيسية</a>
+
+  <section class="card">
+    <h2>رفع امتحان جديد</h2>
     <label for="token">GitHub token</label>
-    <input type="password" id="token" autocomplete="off">
+    <input type="password" id="token" autocomplete="off" dir="ltr">
     <p class="hint">بتكتبه مرة واحدة وبيتحفظ على الجهاز ده بس.</p>
 
     <label for="subject">المادة</label>
     <select id="subject"></select>
 
     <label for="name">اسم الامتحان</label>
-    <input id="name" placeholder="Lecture 2 Quiz">
+    <input id="name" placeholder="Lecture 2 Quiz" dir="auto">
 
     <label for="file">ملف الامتحان (HTML)</label>
     <input type="file" id="file" accept=".html,text/html">
 
-    <button class="btn" id="up">Upload</button>
-    <p class="msg" id="msg" role="status"></p>
-  </div>
+    <button class="btn full" id="up">رفع</button>
+  </section>
+
+  <section class="card">
+    <div class="head">
+      <h2>الامتحانات الموجودة</h2>
+      <button class="btn sm alt" id="refresh">تحديث</button>
+    </div>
+    <div id="list"><p class="empty">اكتب التوكن وادوس تحديث.</p></div>
+  </section>
 </main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
 <script src="config.js"></script>
 <script>
 if(sessionStorage.getItem("admin_ok")!=="1")location.replace("index.html");
 const $=id=>document.getElementById(id);
-SUBJECTS.forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.name+" - "+s.ar;$("subject").append(o)});
+const subName=id=>{const s=SUBJECTS.find(x=>x.id===id);return s?s.ar+" - "+s.name:id};
+SUBJECTS.forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.ar+" - "+s.name;$("subject").append(o)});
 $("token").value=localStorage.getItem("gh_token")||"";
-const msg=(t,c)=>{$("msg").textContent=t;$("msg").className="msg "+(c||"")};
-const api=(p,o={})=>fetch("https://api.github.com/repos/"+CONFIG.owner+"/"+CONFIG.repo+"/contents/"+p,{...o,headers:{Authorization:"Bearer "+$("token").value.trim(),Accept:"application/vnd.github+json","Content-Type":"application/json"}});
+
+let tt;
+function toast(text,kind,link){
+  const t=$("toast");t.className="toast"+(kind==="bad"?" bad":"");t.textContent=text;
+  if(link){t.append(" ");const a=document.createElement("a");a.href=link;a.target="_blank";a.rel="noopener";a.textContent="افتح اللينك";t.append(a)}
+  t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,link?12000:4500);
+}
+
+const base=()=>"https://api.github.com/repos/"+CONFIG.owner+"/"+CONFIG.repo+"/contents/";
+const api=(p,o={})=>fetch(base()+p,{cache:"no-store",...o,headers:{Authorization:"Bearer "+$("token").value.trim(),Accept:"application/vnd.github+json","Content-Type":"application/json"}});
 const toB64=s=>btoa(unescape(encodeURIComponent(s)));
 const fromB64=s=>decodeURIComponent(escape(atob(s.replace(/\s/g,""))));
 const slug=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||("exam-"+Date.now());
@@ -62,41 +110,128 @@ const slug=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g
 async function getFile(path){
   const r=await api(path+"?ref="+CONFIG.branch);
   if(r.status===404)return null;
-  if(!r.ok)throw new Error("GitHub قال: "+r.status+" (اتأكد من التوكن واسم الريبو)");
+  if(!r.ok)throw new Error("GitHub رجّع خطأ "+r.status+". اتأكد من التوكن واسم الريبو.");
   return r.json();
 }
 async function putFile(path,content,sha,message){
   const body={message,content,branch:CONFIG.branch};if(sha)body.sha=sha;
   const r=await api(path,{method:"PUT",body:JSON.stringify(body)});
-  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error("فشل الرفع: "+(e.message||r.status))}
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error("فشل الحفظ: "+(e.message||r.status))}
+}
+async function delFile(path,sha,message){
+  const r=await api(path,{method:"DELETE",body:JSON.stringify({message,sha,branch:CONFIG.branch})});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error("فشل الحذف: "+(e.message||r.status))}
+}
+async function readManifest(){
+  const m=await getFile("exams.json");
+  return {sha:m&&m.sha,data:m?JSON.parse(fromB64(m.content)):{}};
+}
+async function saveManifest(data,sha,message){
+  await putFile("exams.json",toB64(JSON.stringify(data,null,2)),sha,message);
+}
+function needToken(){
+  if(!$("token").value.trim()){toast("اكتب التوكن الأول","bad");return true}
+  localStorage.setItem("gh_token",$("token").value.trim());return false;
+}
+function lock(on){document.querySelectorAll("button").forEach(b=>b.disabled=on)}
+
+/* ===== عرض القايمة ===== */
+async function loadList(){
+  if(needToken())return;
+  lock(true);
+  try{
+    const {data}=await readManifest();
+    render(data);
+  }catch(e){toast(e.message,"bad")}
+  lock(false);
+}
+function render(data){
+  const box=$("list");box.textContent="";
+  let total=0;
+  SUBJECTS.forEach(s=>{
+    const items=data[s.id]||[];
+    if(!items.length)return;
+    total+=items.length;
+    const h=document.createElement("p");h.className="sub";h.textContent=s.ar+" - "+s.name;box.append(h);
+    items.forEach(x=>box.append(rowFor(s.id,x)));
+  });
+  if(!total){const p=document.createElement("p");p.className="empty";p.textContent="مفيش امتحانات لسه.";box.append(p)}
+}
+function rowFor(sub,x){
+  const row=document.createElement("div");row.className="row";
+  const t=document.createElement("span");t.className="t";t.dir="auto";t.textContent=x.title;
+  const ren=document.createElement("button");ren.className="btn sm alt";ren.textContent="تغيير الاسم";
+  const del=document.createElement("button");del.className="btn sm danger";del.textContent="حذف";
+  ren.onclick=()=>editRow(row,sub,x);
+  del.onclick=()=>removeExam(sub,x);
+  row.append(t,ren,del);return row;
+}
+function editRow(row,sub,x){
+  row.textContent="";
+  const inp=document.createElement("input");inp.value=x.title;inp.dir="auto";inp.setAttribute("aria-label","الاسم الجديد");
+  const ok=document.createElement("button");ok.className="btn sm";ok.textContent="حفظ";
+  const no=document.createElement("button");no.className="btn sm alt";no.textContent="إلغاء";
+  ok.onclick=()=>renameExam(sub,x,inp.value.trim());
+  no.onclick=loadList;
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter")ok.click();if(e.key==="Escape")no.click()});
+  row.append(inp,ok,no);inp.focus();inp.select();
 }
 
+/* ===== تغيير الاسم ===== */
+async function renameExam(sub,x,newTitle){
+  if(!newTitle)return toast("اكتب اسم","bad");
+  lock(true);
+  try{
+    const {sha,data}=await readManifest();
+    const e=(data[sub]||[]).find(i=>i.path===x.path);
+    if(!e)throw new Error("الامتحان مش موجود في القايمة. دوس تحديث.");
+    e.title=newTitle;
+    await saveManifest(data,sha,"Rename exam: "+newTitle);
+    render(data);toast("اتغيّر الاسم. هيظهر في الموقع بعد حوالي دقيقة.");
+  }catch(err){toast(err.message,"bad")}
+  lock(false);
+}
+
+/* ===== الحذف ===== */
+async function removeExam(sub,x){
+  if(!confirm("متأكد إنك عايز تحذف \""+x.title+"\"؟ الحذف نهائي."))return;
+  lock(true);
+  try{
+    const f=await getFile(x.path);
+    if(f)await delFile(x.path,f.sha,"Delete exam: "+x.title);
+    const {sha,data}=await readManifest();
+    data[sub]=(data[sub]||[]).filter(i=>i.path!==x.path);
+    if(!data[sub].length)delete data[sub];
+    await saveManifest(data,sha,"Update exam list");
+    render(data);toast("اتحذف. هيختفي من الموقع بعد حوالي دقيقة.");
+  }catch(err){toast(err.message,"bad")}
+  lock(false);
+}
+
+/* ===== الرفع ===== */
 $("up").onclick=async()=>{
   const f=$("file").files[0],name=$("name").value.trim(),sub=$("subject").value;
-  if(!$("token").value.trim())return msg("اكتب التوكن الأول","bad");
-  if(!name)return msg("اكتب اسم الامتحان","bad");
-  if(!f)return msg("اختار ملف HTML","bad");
-  localStorage.setItem("gh_token",$("token").value.trim());
-  $("up").disabled=true;msg("بيرفع...");
+  if(needToken())return;
+  if(!name)return toast("اكتب اسم الامتحان","bad");
+  if(!f)return toast("اختار ملف HTML","bad");
+  lock(true);toast("بيرفع...");
   try{
     const html=await f.text();
     const path="exams/"+sub+"/"+slug(name)+".html";
     const old=await getFile(path);
     await putFile(path,toB64(html),old&&old.sha,"Add exam: "+name);
-
-    const m=await getFile("exams.json");
-    const data=m?JSON.parse(fromB64(m.content)):{};
-    data[sub]=(data[sub]||[]).filter(x=>x.path!==path);
+    const {sha,data}=await readManifest();
+    data[sub]=(data[sub]||[]).filter(i=>i.path!==path);
     data[sub].push({title:name,path,date:new Date().toISOString().slice(0,10)});
-    await putFile("exams.json",toB64(JSON.stringify(data,null,2)),m&&m.sha,"Update exam list");
-
-    const url="https://"+CONFIG.owner+".github.io/"+CONFIG.repo+"/"+path;
-    $("msg").className="msg ok";
-    $("msg").innerHTML="اترفع. اللينك هيشتغل بعد حوالي دقيقة:<br><a href=\""+url+"\" target=\"_blank\" rel=\"noopener\">"+url+"</a>";
+    await saveManifest(data,sha,"Update exam list");
     $("name").value="";$("file").value="";
-  }catch(e){msg(e.message,"bad")}
-  $("up").disabled=false;
+    render(data);
+    toast("اترفع. بيشتغل بعد حوالي دقيقة.","ok","https://"+CONFIG.owner+".github.io/"+CONFIG.repo+"/"+path);
+  }catch(e){toast(e.message,"bad")}
+  lock(false);
 };
+$("refresh").onclick=loadList;
+if($("token").value.trim())loadList();
 </script>
 </body>
 </html>
