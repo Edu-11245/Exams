@@ -6,6 +6,7 @@ window.CONFIG = {
 };
 window.SUBJECTS = [
   { id: "zoology",  name: "Invertebrate Zoology", ar: "زولوجي",        color: "#3F6B86", icon: "🪱" },
+  { id: "bio",      name: "Biology",              ar: "بايو",          color: "#5E9B3F", icon: "🧬" },
   { id: "math",     name: "Mathematics",          ar: "ماث",           color: "#7A5C99", icon: "∑" },
   { id: "geology",  name: "Geology",              ar: "جيو",           color: "#9A6B3F", icon: "🪨" },
   { id: "chemistry",name: "Chemistry",            ar: "كيمياء",        color: "#3E7C6B", icon: "⚗️" },
