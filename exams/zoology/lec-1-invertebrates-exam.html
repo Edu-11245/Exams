@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Invertebrate Zoology - Lecture 1 Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#F6FBFA;--ink:#1F2A44;--mute:#5E6B8A;--line:#D5E6E2;--main:#17806C;--soft:#E4F7F2;--ok:#1E9E73;--okbg:#D9F7E9;--bad:#D6455D;--badbg:#FFE4E9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Readex Pro","Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px max(60px,env(safe-area-inset-bottom));min-height:100vh;position:relative;overflow-x:hidden}
+
+/* خلفية متحركة */
+.blob{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none}
+.b1{width:400px;height:400px;background:#BFF2E6;top:-120px;right:-100px;animation:d1 17s ease-in-out infinite}
+.b2{width:360px;height:360px;background:#C9E4FF;bottom:-110px;left:-90px;animation:d2 20s ease-in-out infinite}
+.b3{width:300px;height:300px;background:#E1D6FF;top:42%;left:55%;animation:d3 23s ease-in-out infinite}
+@keyframes d1{50%{transform:translate(-90px,110px) scale(1.15)}}
+@keyframes d2{50%{transform:translate(110px,-90px) scale(1.1)}}
+@keyframes d3{50%{transform:translate(-120px,60px) scale(.9)}}
+
+main{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.back{display:inline-block;margin-bottom:14px;color:var(--mute);font-size:14px;text-decoration:none;border-bottom:1.5px solid var(--line)}
+.back:hover{color:var(--ink);border-color:var(--ink)}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:0 0 6px;font-weight:800;background:linear-gradient(90deg,#17A58A,#4F8CFF,#9B6BFF,#17A58A);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+.sub{color:var(--mute);margin:0 0 22px}
+
+.card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 12px 32px rgba(40,90,100,.12);animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(28px) scale(.97)}}
+.top{display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:var(--mute);margin-bottom:8px}
+#sc.pop{animation:pop .4s}
+@keyframes pop{40%{transform:scale(1.35);color:var(--ok)}}
+.bar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3FD0B0,#4F8CFF);border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+
+.q{font-size:20px;font-weight:600;line-height:1.5;margin:0 0 18px;animation:slide .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slide{from{opacity:0;transform:translateX(30px)}}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:#fff;border:2px solid var(--line);border-radius:18px;padding:13px 16px;margin-bottom:10px;cursor:pointer;animation:slide .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k)*70ms + 80ms);transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+.opt:hover:not(:disabled){border-color:var(--main);background:var(--soft);transform:translateX(6px);box-shadow:0 6px 16px rgba(23,128,108,.15)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid #4F8CFF;outline-offset:3px}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--ok);background:var(--okbg);animation:yes .5s}
+.opt.no{border-color:var(--bad);background:var(--badbg);animation:shake .45s}
+@keyframes yes{40%{transform:scale(1.04)}}
+@keyframes shake{20%{transform:translateX(-9px)}50%{transform:translateX(9px)}80%{transform:translateX(-5px)}}
+.k{display:inline-block;min-width:24px;font-weight:800;color:var(--main);opacity:.7}
+
+.exp{margin-top:8px;padding:14px 16px;border-radius:18px;background:var(--soft);border-right:5px solid var(--main);direction:rtl;text-align:right;font-size:15.5px;animation:fadeup .4s both}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}}
+
+.btn{font:inherit;font-weight:600;background:var(--main);color:#fff;border:0;border-radius:999px;padding:12px 28px;cursor:pointer;margin:18px 10px 0 0;transition:transform .2s,box-shadow .2s;animation:fadeup .4s both}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(23,128,108,.35)}
+.btn.alt{background:transparent;color:var(--main);border:2px solid var(--main)}
+.btn.alt:hover{box-shadow:none;background:var(--soft)}
+#go{animation:fadeup .4s both,beat 2s 1s ease-in-out infinite}
+@keyframes beat{50%{transform:scale(1.06)}}
+.hero{font-size:44px;display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(8deg)}}
+
+.score{font-size:54px;font-weight:800;color:var(--main);margin:2px 0;line-height:1.2}
+.rev{border-top:1px solid var(--line);padding:12px 0;font-size:15px;animation:fadeup .4s both}
+.rev b{display:block}
+.rev span{color:var(--ok)}
+.rev em{color:var(--bad);font-style:normal}
+[hidden]{display:none!important}
+
+.conf{position:fixed;top:-30px;z-index:5;font-size:26px;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(112vh) rotate(540deg);opacity:.9}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<main>
+<a class="back" href="../../index.html">Back to Exam Hub</a>
+<h1>Invertebrate Zoology: Lecture 1 Quiz</h1>
+<p class="sub">29 questions on classification history, the 9 bases and the main phyla. Questions are in English, explanations in Arabic.</p>
+
+<section class="card" id="start">
+<div class="hero" aria-hidden="true">🪱</div>
+<p class="q">Ready to test yourself?</p>
+<p class="sub">Options are shuffled every time. You see the answer and a short explanation after each question. Tip: press 1 to 4 to pick an option.</p>
+<button class="btn" id="go">Start quiz</button>
+</section>
+
+<section class="card" id="play" hidden>
+<div class="top"><span id="cnt"></span><span id="sc"></span></div>
+<div class="bar"><i id="pb"></i></div>
+<p class="q" id="qt"></p>
+<div id="opts"></div>
+<div class="exp" id="exp" hidden lang="ar"></div>
+<button class="btn" id="nx" hidden>Next question</button>
+</section>
+
+<section class="card" id="end" hidden>
+<p class="sub" style="margin:0">Your score</p>
+<div class="score" id="fs"></div>
+<p id="msg" class="sub"></p>
+<button class="btn" id="rw" hidden>Retry wrong answers</button>
+<button class="btn alt" id="ra">Restart all</button>
+<div id="rv" style="margin-top:18px"></div>
+</section>
+</main>
+
+<script>
+// [question, correct, wrong, wrong, wrong, explanation (Arabic)]
+const Q=[
+["Who is known as the “Father of Zoology”?","Aristotle","John Ray","Linnaeus","Darwin","أرسطو (اليوناني، 384-322 ق.م) هو أبو علم الحيوان."],
+["Anaima means animals…","without red blood (invertebrates)","with red blood (vertebrates)","that eat plants","that eat meat","Anaima من غير دم أحمر = لافقاريات. Enaima = بدم أحمر."],
+["Aristotle’s second division of animals was based on…","their food (herbivorous / carnivorous)","their symmetry","their germ layers","their skeleton","قسّمهم حسب الأكل: آكل عشب وآكل لحوم."],
+["Who divided living organisms into plant and animal kingdoms and defined the species?","John Ray","Aristotle","Linnaeus","Mendel","جون راي (إنجليزي، 1628-1705)."],
+["The correct order from largest to smallest group is…","Kingdom, Phyla, Classes, Orders, Families, Genera, Species","Kingdom, Classes, Phyla, Orders, Genera, Families, Species","Species, Genera, Families, Orders, Classes, Phyla, Kingdom","Phyla, Kingdom, Orders, Classes, Families, Species, Genera","الترتيب: Kingdom > Phyla > Classes > Orders > Families > Genera > Species."],
+["Which phrase is part of the definition of a species?","produce fertile offspring","live in the same habitat","have the same diet","have the same number of cells","النوع: متشابه شكلياً، بيتزاوج ويجيب نسل fertile (بيخلّف)."],
+["Linnaeus recognized how many classes of the Animal Kingdom?","6","4","5","9","لينيوس: 6 classes (Mammalia, Aves, Amphibia, Pisces, Insecta, Vermes)."],
+["In Linnaeus’s system, “Vermes” includes…","all other invertebrates","only worms","only fish","reptiles and amphibians","Vermes = كل اللافقاريات التانية."],
+["Binomial nomenclature gives each organism a name made of…","2 Latin words","1 Greek word","3 Latin words","2 Arabic words","اسم من كلمتين لاتيني: genus + species."],
+["Which is the correct way to write the scientific name?","Bufo regularis (capital genus, small species, in italics)","bufo Regularis","Bufo Regularis","bufo regularis","الـ genus بيبدأ Capital والـ species بيبدأ small، والاتنين italic أو تحتهم خط."],
+["The first word of a scientific name is the…","genus (generic name)","species (specific name)","family","class","الكلمة الأولى = genus."],
+["How many bases are used in animal kingdom classification (in this lecture)?","9","5","7","12","9 bases من cellular differentiation لحد unique features."],
+["Protozoa are…","unicellular organisms","multicellular organisms","animals with a backbone","plants","Protozoa = خلية واحدة. Metazoa = أكتر من خلية."],
+["Which animals are asymmetrical?","Most sponges","Birds","Insects","Starfish","معظم الإسفنج asymmetrical."],
+["Spherical symmetry is found in…","Volvox","Earthworm","Butterfly","Eagle","Volvox مستعمرة flagellate protozoan، شكلها كورة."],
+["Radial symmetry is found in…","Echinoderms","Insects","Birds","Reptiles","Radial: بعض الإسفنج، Cnidarians، Echinoderms."],
+["Bilateral symmetry is found in…","Aves, insects and reptiles","Volvox","Sea urchins","Sea anemones","Bilateral = نصين يمين وشمال، زي الطيور والحشرات والزواحف."],
+["The upper surface (back) of a bilateral animal is called…","Dorsal","Ventral","Anterior","Posterior","Dorsal = الضهر. Ventral = البطن. Anterior = الأمام. Posterior = الخلف."],
+["Diploblastic animals have which germ layers?","Ectoderm and endoderm","Ectoderm and mesoderm","Mesoderm and endoderm","Ectoderm, mesoderm and endoderm","Diplo = 2: ecto + endo. وبتنقص الـ mesoderm."],
+["A diploblastic phylum is…","Cnidaria (Coelenterata)","Annelida","Chordata","Platyhelminthes","Cnidaria هي المثال في المحاضرة."],
+["Metamerism is…","the linear repetition of parts in the body","the number of germ layers","the type of body cavity","the type of skeleton","Metamerism = تكرار خطي للأجزاء، كل جزء metamere أو somite."],
+["Segments are similar and clear both externally and internally in…","Annelids","Arthropods","Nematodes","Cnidarians","Annelids: متشابهة وواضحة من بره ومن جوه."],
+["In Arthropods the segments are…","dissimilar (heteronomous) and clear only externally","similar and clear internally","absent","similar and clear in and out","Arthropods: مختلفة وواضحة من بره بس."],
+["The coelom is completely lined with tissue derived from the…","mesoderm","ectoderm","endoderm","blastocoel","الـ coelom جداره من الـ mesoderm."],
+["Which is NOT a function of the coelom?","Photosynthesis","Shock absorption","Organ independence","Hydrostatic skeleton","وظايف الـ coelom: shock absorption وorgan independence وhydrostatic skeleton."],
+["Acoelomata (no body cavity) is represented by phylum…","Platyhelminthes","Nematoda","Chordata","Cnidaria","Acoelomata = Platyhelminthes، والـ mesoderm مليّا المكان."],
+["A pseudocoel is…","a false coelom not lined with peritoneum","a true coelom lined with peritoneum","absent in all animals","found only in Chordates","Pseudocoelomata مثالها Nematoda."],
+["Earthworms are hermaphroditic. This term means…","male and female organs in the same individual","each individual is either male or female","no sex organs","sex is separate","Hermaphroditic = monoecious. Dioecious = unisexual."],
+["Match the unique feature: cnidocytes, flame cells, nephridia.","Cnidaria, Platyhelminthes, Annelida","Annelida, Cnidaria, Platyhelminthes","Platyhelminthes, Annelida, Cnidaria","Nematoda, Chordata, Arthropoda","Cnidocytes = Cnidaria. Flame cells = Platyhelminthes. Nephridia = Annelida."]
+];
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let list,i,score,wrong,locked;
+const sh=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+function show(id){["start","play","end"].forEach(s=>{$(s).hidden=s!==id;if(s===id){$(s).style.animation="none";void $(s).offsetWidth;$(s).style.animation=""}})}
+function begin(qs){list=sh(qs);i=0;score=0;wrong=[];show("play");render()}
+function render(){
+  const q=list[i];locked=false;
+  $("cnt").textContent="Question "+(i+1)+" of "+list.length;
+  $("sc").textContent="Score: "+score;
+  $("pb").style.width=(i/list.length*100)+"%";
+  const qt=$("qt");qt.textContent=q[0];qt.style.animation="none";void qt.offsetWidth;qt.style.animation="";
+  $("exp").hidden=true;$("nx").hidden=true;
+  $("opts").innerHTML="";
+  sh(q.slice(1,5).map((t,k)=>({t,ok:k===0}))).forEach((o,k)=>{
+    const b=document.createElement("button");b.className="opt";b.style.setProperty("--k",k);
+    const n=document.createElement("span");n.className="k";n.textContent=(k+1)+".";
+    b.append(n,document.createTextNode(o.t));
+    b.onclick=()=>pick(b,o);b.dataset.ok=o.ok?1:0;
+    $("opts").appendChild(b)});
+}
+function pick(b,o){
+  if(locked)return;locked=true;
+  const q=list[i];
+  document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.ok==="1")x.classList.add("ok")});
+  if(o.ok){score++;$("sc").classList.remove("pop");void $("sc").offsetWidth;$("sc").classList.add("pop")}
+  else{b.classList.add("no");wrong.push({q,pick:b.textContent.replace(/^\d\./,"")})}
+  $("sc").textContent="Score: "+score;
+  $("pb").style.width=((i+1)/list.length*100)+"%";
+  $("exp").textContent=q[5];$("exp").hidden=false;
+  $("nx").textContent=i===list.length-1?"See results":"Next question";$("nx").hidden=false;$("nx").focus();
+}
+$("nx").onclick=()=>{i++;i<list.length?render():finish()};
+function countUp(el,to,total,p){
+  if(reduce){el.textContent=to+" / "+total+" ("+p+"%)";return}
+  let n=0;const step=()=>{el.textContent=n+" / "+total+" ("+Math.round(n/total*100)+"%)";if(n<to){n++;setTimeout(step,70)}else el.textContent=to+" / "+total+" ("+p+"%)"};step();
+}
+function confetti(){
+  if(reduce)return;
+  const em=["🎉","✨","🎊","⭐","🪱","🌟"];
+  for(let k=0;k<36;k++){
+    const s=document.createElement("span");s.className="conf";s.textContent=em[k%em.length];
+    s.style.left=Math.random()*100+"vw";s.style.animationDuration=(2.4+Math.random()*2.2)+"s";s.style.animationDelay=(Math.random()*.9)+"s";
+    document.body.appendChild(s);setTimeout(()=>s.remove(),6000);
+  }
+}
+function finish(){
+  show("end");const p=Math.round(score/list.length*100);
+  countUp($("fs"),score,list.length,p);
+  $("msg").textContent=p>=90?"Excellent. You know this lecture well.":p>=70?"Good. Review the questions you missed below.":"Keep going. Read the summary again, then retry the wrong answers.";
+  if(p>=70)confetti();
+  $("rw").hidden=!wrong.length;
+  $("rv").innerHTML=wrong.map(w=>'<div class="rev"><b></b><em></em><br><span></span></div>').join("");
+  [...$("rv").children].forEach((d,k)=>{const w=wrong[k];d.style.animationDelay=(k*60)+"ms";d.querySelector("b").textContent=w.q[0];d.querySelector("em").textContent="Your answer: "+w.pick;d.querySelector("span").textContent="Correct: "+w.q[1]});
+}
+$("go").onclick=()=>begin(Q);
+$("ra").onclick=()=>begin(Q);
+$("rw").onclick=()=>begin(wrong.map(w=>w.q));
+document.addEventListener("keydown",e=>{
+  if($("play").hidden)return;
+  if(e.key>="1"&&e.key<="4"){const b=document.querySelectorAll(".opt")[+e.key-1];if(b&&!b.disabled)b.click()}
+  else if(e.key==="Enter"&&!$("nx").hidden&&document.activeElement!==$("nx"))$("nx").click();
+});
+</script>
+</body>
+</html>
