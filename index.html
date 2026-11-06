@@ -1,83 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Exams - By Mohammed Saad</title>
+<meta name="color-scheme" content="light">
+<title>Exam Hub | امتحانات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EEF2F5;--card:#fff;--ink:#22303C;--mute:#66747F;--line:#D3DCE4;--soft:#E3EBF1;--deep:#2F4858}
-@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#151C22;--card:#1E2830;--ink:#E4EAEF;--mute:#93A1AC;--line:#33424E;--soft:#26333D;--deep:#BBD0DE}}
+:root{color-scheme:light;--bg:#F7F9FF;--ink:#1F2A44;--mute:#5E6B8A}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px 60px}
-header{max-width:980px;margin:0 auto 26px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-h1{font-size:30px;line-height:1.2;margin:0;color:var(--deep)}
-.sub{color:var(--mute);margin:4px 0 0}
-.edit{font:inherit;font-weight:600;color:var(--deep);background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:8px 16px;cursor:pointer}
-.edit:hover{border-color:var(--deep)}
-.grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;min-height:170px}
-.card h2{margin:0;font-size:20px;line-height:1.3}
-.card h2 small{display:block;font-size:14px;font-weight:400;color:var(--mute)}
-.ic{font-size:26px;line-height:1}
-.empty{color:var(--mute);font-size:14px;margin:auto 0 0}
-.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-.list a{display:block;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-weight:600}
-.list a:hover{border-color:var(--c);background:var(--soft)}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--c,#3F6B86);outline-offset:2px}
-dialog{border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px;width:min(340px,92vw)}
-dialog::backdrop{background:rgba(0,0,0,.45)}
-dialog h3{margin:0 0 12px}
-input{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
-.row{display:flex;gap:10px;margin-top:14px}
-.btn{font:inherit;font-weight:600;background:#3F6B86;color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
-.btn.alt{background:transparent;color:#3F6B86;border:1.5px solid #3F6B86}
-.err{color:#A8504A;font-size:14px;margin:8px 0 0;min-height:1.2em}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Readex Pro","Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;font-size:16px;line-height:1.6;padding:max(28px,env(safe-area-inset-top)) 18px max(48px,env(safe-area-inset-bottom));min-height:100vh;overflow-x:hidden;position:relative}
+
+/* خلفية متحركة */
+.blob{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none}
+.b1{width:420px;height:420px;background:#BFE9FF;top:-120px;right:-100px;animation:drift1 16s ease-in-out infinite}
+.b2{width:380px;height:380px;background:#FFD1E8;bottom:-120px;left:-80px;animation:drift2 19s ease-in-out infinite}
+.b3{width:320px;height:320px;background:#D9CCFF;top:38%;left:30%;animation:drift3 22s ease-in-out infinite}
+@keyframes drift1{50%{transform:translate(-90px,110px) scale(1.15)}}
+@keyframes drift2{50%{transform:translate(110px,-90px) scale(1.1)}}
+@keyframes drift3{50%{transform:translate(-120px,60px) scale(.9)}}
+
+.wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:34px}
+h1{margin:0;font-size:clamp(46px,10vw,84px);line-height:1.15;font-weight:800;background:linear-gradient(90deg,#4F8CFF,#9B6BFF,#FF6BA8,#4F8CFF);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+.lead{margin:6px 0 0;color:var(--mute);font-size:18px;animation:fade .8s .3s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.edit{font:inherit;font-size:14px;font-weight:600;color:var(--mute);background:rgba(255,255,255,.8);border:1.5px solid #DCE3F5;border-radius:999px;padding:7px 18px;cursor:pointer;transition:transform .2s,box-shadow .2s,color .2s}
+.edit:hover{color:var(--ink);transform:translateY(-2px);box-shadow:0 6px 16px rgba(60,80,140,.15)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.tile{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;min-height:240px;padding:22px;border-radius:28px;background:linear-gradient(145deg,var(--c1),var(--c2));color:var(--ink);box-shadow:0 10px 26px rgba(60,80,140,.14);opacity:0;animation:rise .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*110ms + 150ms);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+@keyframes rise{from{opacity:0;transform:translateY(34px) scale(.95)}to{opacity:1;transform:none}}
+.tile:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:0 22px 40px rgba(60,80,140,.22)}
+.tile::after{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.28);bottom:-70px;left:-60px;transition:transform .5s}
+.tile:hover::after{transform:scale(1.35)}
+.tile>*{position:relative;z-index:1}
+
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.en{direction:ltr;opacity:.8}
+.cnt{background:rgba(255,255,255,.65);border-radius:999px;padding:1px 13px;font-size:13px;white-space:nowrap}
+.top{display:flex;align-items:center;gap:12px;margin:20px 0 20px}
+.ico{font-size:40px;line-height:1;animation:bob 3.4s ease-in-out infinite;animation-delay:calc(var(--i)*-.6s);display:inline-block}
+@keyframes bob{50%{transform:translateY(-8px) rotate(8deg)}}
+.name{margin:0;font-size:clamp(32px,5vw,42px);line-height:1.15;font-weight:800}
+
+.list{list-style:none;margin:auto 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.list a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 18px;border-radius:999px;background:rgba(255,255,255,.8);color:var(--ink);text-decoration:none;font-weight:600;transition:background .2s,color .2s,transform .2s}
+.list a:hover{background:var(--ink);color:#fff;transform:translateX(-5px)}
+.go{font-size:13px;font-weight:600;transition:transform .2s}
+.list a:hover .go{transform:translateX(-4px)}
+
+.tile.empty{background:rgba(255,255,255,.6);border:2.5px dashed var(--c2);box-shadow:none;backdrop-filter:blur(6px)}
+.tile.empty::after{background:var(--c1);opacity:.35}
+.soon{margin:auto 0 0;font-size:15px;color:var(--mute);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #4F8CFF;outline-offset:3px}
+
+dialog{border:0;border-radius:26px;background:#fff;color:var(--ink);padding:26px;width:min(360px,92vw);font-family:inherit;box-shadow:0 24px 60px rgba(40,60,120,.3)}
+dialog[open]{animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:scale(.9) translateY(14px)}}
+dialog::backdrop{background:rgba(40,50,90,.35);backdrop-filter:blur(4px)}
+dialog h3{margin:0 0 4px;font-size:22px}
+dialog p{margin:0 0 14px;color:var(--mute);font-size:14px}
+input{font:inherit;width:100%;padding:11px 14px;border-radius:14px;border:1.5px solid #D5DDF2;background:#F7F9FF;color:var(--ink)}
+.row{display:flex;gap:10px;margin-top:16px}
+.btn{font:inherit;font-weight:600;background:#4F8CFF;color:#fff;border:0;border-radius:999px;padding:10px 26px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(79,140,255,.4)}
+.btn.alt{background:#EEF2FB;color:var(--ink)}
+.btn.alt:hover{box-shadow:none}
+.err{color:#D6455D;font-size:14px;margin:8px 0 0;min-height:1.3em}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+
+@media (max-width:520px){header{flex-direction:column-reverse}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .tile{opacity:1}
+}
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <h1>Exam Hub</h1>
-    <p class="sub">اختار المادة وابدأ الامتحان</p>
-  </div>
-  <button class="edit" id="edit">Edit</button>
-</header>
-<main class="grid" id="grid"></main>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>امتحانات</h1>
+      <p class="lead">اختار المادة وابدأ الامتحان</p>
+    </div>
+    <button class="edit" id="edit">تعديل</button>
+  </header>
+  <main class="grid" id="grid"></main>
+</div>
 
 <dialog id="dlg">
-  <h3>Password</h3>
-  <input type="password" id="pw" autocomplete="current-password">
-  <p class="err" id="err"></p>
+  <h3>الباسورد</h3>
+  <p>صفحة رفع الامتحانات</p>
+  <input type="password" id="pw" autocomplete="current-password" dir="ltr">
+  <p class="err" id="err" role="alert"></p>
   <div class="row">
-    <button class="btn" id="ok">Open</button>
-    <button class="btn alt" id="cancel">Cancel</button>
+    <button class="btn" id="ok">فتح</button>
+    <button class="btn alt" id="cancel">إلغاء</button>
   </div>
 </dialog>
 
 <script src="config.js"></script>
 <script>
+// ألوان باستيل لكل مادة + أيقونة
+const LOOK={
+  zoology:  {c:["#BFF2E6","#7EDCC4"],i:"🪱"},
+  math:     {c:["#DCD0FF","#B39BFF"],i:"➗"},
+  geology:  {c:["#FFF0A8","#FFD35C"],i:"🪨"},
+  chemistry:{c:["#FFD0E4","#FF9CC2"],i:"🧪"},
+  physics:  {c:["#BFE2FF","#7FBBFF"],i:"⚛️"},
+  critical: {c:["#FFD2C4","#FF9E8A"],i:"💡"}
+};
+const countText=n=>n===1?"امتحان واحد":n===2?"امتحانين":n<=10?n+" امتحانات":n+" امتحان";
 const grid=document.getElementById("grid");
+
 async function load(){
   let data={};
   try{const r=await fetch("exams.json",{cache:"no-store"});data=await r.json()}catch(e){}
   grid.innerHTML="";
-  SUBJECTS.forEach(s=>{
+  SUBJECTS.forEach((s,idx)=>{
     const exams=data[s.id]||[];
-    const c=document.createElement("section");
-    c.className="card";c.style.setProperty("--c",s.color);
-    const h=document.createElement("h2");
-    const ic=document.createElement("span");ic.className="ic";ic.textContent=s.icon;
-    const sm=document.createElement("small");sm.textContent=s.ar;
-    h.append(s.name,sm);
-    c.append(ic,h);
+    const look=LOOK[s.id]||{c:["#DDE6FF","#B7C8FF"],i:"📘"};
+    const t=document.createElement("section");
+    t.className="tile"+(exams.length?"":" empty");
+    t.style.setProperty("--c1",look.c[0]);t.style.setProperty("--c2",look.c[1]);t.style.setProperty("--i",idx);
+
+    const meta=document.createElement("div");meta.className="meta";
+    const en=document.createElement("span");en.className="en";en.textContent=s.name;
+    const cnt=document.createElement("span");cnt.className="cnt";cnt.textContent=exams.length?countText(exams.length):"قريباً";
+    meta.append(en,cnt);
+
+    const top=document.createElement("div");top.className="top";
+    const ico=document.createElement("span");ico.className="ico";ico.textContent=look.i;ico.setAttribute("aria-hidden","true");
+    const name=document.createElement("h2");name.className="name";name.textContent=s.ar;
+    top.append(ico,name);
+    t.append(meta,top);
+
     if(exams.length){
       const ul=document.createElement("ul");ul.className="list";
-      exams.forEach(x=>{const li=document.createElement("li");const a=document.createElement("a");a.href=x.path;a.textContent=x.title;li.append(a);ul.append(li)});
-      c.append(ul);
+      exams.forEach(x=>{
+        const li=document.createElement("li");
+        const a=document.createElement("a");a.href=x.path;
+        const ti=document.createElement("span");ti.dir="auto";ti.textContent=x.title;
+        const go=document.createElement("span");go.className="go";go.textContent="ابدأ";
+        a.append(ti,go);li.append(a);ul.append(li);
+      });
+      t.append(ul);
     }else{
-      const p=document.createElement("p");p.className="empty";p.textContent="مفيش امتحانات لسه";c.append(p);
+      const p=document.createElement("p");p.className="soon";p.textContent="مفيش امتحانات لسه";
+      t.append(p);
     }
-    grid.append(c);
+    grid.append(t);
   });
 }
 load();
@@ -88,7 +170,7 @@ document.getElementById("edit").onclick=()=>{pw.value="";err.textContent="";dlg.
 document.getElementById("cancel").onclick=()=>dlg.close();
 async function tryOpen(){
   if(await sha(pw.value)===CONFIG.passHash){sessionStorage.setItem("admin_ok","1");location.href="admin.html"}
-  else err.textContent="الباسورد غلط";
+  else{err.textContent="الباسورد غلط";pw.classList.remove("shake");void pw.offsetWidth;pw.classList.add("shake")}
 }
 document.getElementById("ok").onclick=tryOpen;
 pw.addEventListener("keydown",e=>{if(e.key==="Enter")tryOpen()});
