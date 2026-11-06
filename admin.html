@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Upload exam</title>
+<style>
+:root{--bg:#EEF2F5;--card:#fff;--ink:#22303C;--mute:#66747F;--line:#D3DCE4;--deep:#2F4858;--ok:#3E7C6B;--bad:#A8504A}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#151C22;--card:#1E2830;--ink:#E4EAEF;--mute:#93A1AC;--line:#33424E;--deep:#BBD0DE;--ok:#7CC1A9;--bad:#E09A93}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px 60px}
+main{max-width:520px;margin:0 auto}
+h1{font-size:26px;margin:0 0 4px;color:var(--deep)}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+label{display:block;font-weight:600;margin:14px 0 6px}
+label:first-child{margin-top:0}
+input,select{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+input:focus-visible,select:focus-visible,.btn:focus-visible{outline:3px solid #3F6B86;outline-offset:2px}
+.hint{font-size:13px;color:var(--mute);margin:4px 0 0}
+.btn{font:inherit;font-weight:600;background:#3F6B86;color:#fff;border:0;border-radius:10px;padding:12px 22px;cursor:pointer;margin-top:20px;width:100%}
+.btn:disabled{opacity:.6;cursor:wait}
+.msg{margin-top:14px;font-size:15px;min-height:1.4em}
+.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
+a{color:#3F6B86}
+</style>
+</head>
+<body>
+<main>
+  <h1>Upload exam</h1>
+  <p class="sub"><a href="index.html">رجوع للصفحة الرئيسية</a></p>
+  <div class="card">
+    <label for="token">GitHub token</label>
+    <input type="password" id="token" autocomplete="off">
+    <p class="hint">بتكتبه مرة واحدة وبيتحفظ على الجهاز ده بس.</p>
+
+    <label for="subject">المادة</label>
+    <select id="subject"></select>
+
+    <label for="name">اسم الامتحان</label>
+    <input id="name" placeholder="Lecture 2 Quiz">
+
+    <label for="file">ملف الامتحان (HTML)</label>
+    <input type="file" id="file" accept=".html,text/html">
+
+    <button class="btn" id="up">Upload</button>
+    <p class="msg" id="msg" role="status"></p>
+  </div>
+</main>
+<script src="config.js"></script>
+<script>
+if(sessionStorage.getItem("admin_ok")!=="1")location.replace("index.html");
+const $=id=>document.getElementById(id);
+SUBJECTS.forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.name+" - "+s.ar;$("subject").append(o)});
+$("token").value=localStorage.getItem("gh_token")||"";
+const msg=(t,c)=>{$("msg").textContent=t;$("msg").className="msg "+(c||"")};
+const api=(p,o={})=>fetch("https://api.github.com/repos/"+CONFIG.owner+"/"+CONFIG.repo+"/contents/"+p,{...o,headers:{Authorization:"Bearer "+$("token").value.trim(),Accept:"application/vnd.github+json","Content-Type":"application/json"}});
+const toB64=s=>btoa(unescape(encodeURIComponent(s)));
+const fromB64=s=>decodeURIComponent(escape(atob(s.replace(/\s/g,""))));
+const slug=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||("exam-"+Date.now());
+
+async function getFile(path){
+  const r=await api(path+"?ref="+CONFIG.branch);
+  if(r.status===404)return null;
+  if(!r.ok)throw new Error("GitHub قال: "+r.status+" (اتأكد من التوكن واسم الريبو)");
+  return r.json();
+}
+async function putFile(path,content,sha,message){
+  const body={message,content,branch:CONFIG.branch};if(sha)body.sha=sha;
+  const r=await api(path,{method:"PUT",body:JSON.stringify(body)});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error("فشل الرفع: "+(e.message||r.status))}
+}
+
+$("up").onclick=async()=>{
+  const f=$("file").files[0],name=$("name").value.trim(),sub=$("subject").value;
+  if(!$("token").value.trim())return msg("اكتب التوكن الأول","bad");
+  if(!name)return msg("اكتب اسم الامتحان","bad");
+  if(!f)return msg("اختار ملف HTML","bad");
+  localStorage.setItem("gh_token",$("token").value.trim());
+  $("up").disabled=true;msg("بيرفع...");
+  try{
+    const html=await f.text();
+    const path="exams/"+sub+"/"+slug(name)+".html";
+    const old=await getFile(path);
+    await putFile(path,toB64(html),old&&old.sha,"Add exam: "+name);
+
+    const m=await getFile("exams.json");
+    const data=m?JSON.parse(fromB64(m.content)):{};
+    data[sub]=(data[sub]||[]).filter(x=>x.path!==path);
+    data[sub].push({title:name,path,date:new Date().toISOString().slice(0,10)});
+    await putFile("exams.json",toB64(JSON.stringify(data,null,2)),m&&m.sha,"Update exam list");
+
+    const url="https://"+CONFIG.owner+".github.io/"+CONFIG.repo+"/"+path;
+    $("msg").className="msg ok";
+    $("msg").innerHTML="اترفع. اللينك هيشتغل بعد حوالي دقيقة:<br><a href=\""+url+"\" target=\"_blank\" rel=\"noopener\">"+url+"</a>";
+    $("name").value="";$("file").value="";
+  }catch(e){msg(e.message,"bad")}
+  $("up").disabled=false;
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exam Hub</title>
+<style>
+:root{--bg:#EEF2F5;--card:#fff;--ink:#22303C;--mute:#66747F;--line:#D3DCE4;--soft:#E3EBF1;--deep:#2F4858}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#151C22;--card:#1E2830;--ink:#E4EAEF;--mute:#93A1AC;--line:#33424E;--soft:#26333D;--deep:#BBD0DE}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px 60px}
+header{max-width:980px;margin:0 auto 26px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+h1{font-size:30px;line-height:1.2;margin:0;color:var(--deep)}
+.sub{color:var(--mute);margin:4px 0 0}
+.edit{font:inherit;font-weight:600;color:var(--deep);background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:8px 16px;cursor:pointer}
+.edit:hover{border-color:var(--deep)}
+.grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px;min-height:170px}
+.card h2{margin:0;font-size:20px;line-height:1.3}
+.card h2 small{display:block;font-size:14px;font-weight:400;color:var(--mute)}
+.ic{font-size:26px;line-height:1}
+.empty{color:var(--mute);font-size:14px;margin:auto 0 0}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.list a{display:block;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-weight:600}
+.list a:hover{border-color:var(--c);background:var(--soft)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--c,#3F6B86);outline-offset:2px}
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px;width:min(340px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog h3{margin:0 0 12px}
+input{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:10px;margin-top:14px}
+.btn{font:inherit;font-weight:600;background:#3F6B86;color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+.btn.alt{background:transparent;color:#3F6B86;border:1.5px solid #3F6B86}
+.err{color:#A8504A;font-size:14px;margin:8px 0 0;min-height:1.2em}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Exam Hub</h1>
+    <p class="sub">اختار المادة وابدأ الامتحان</p>
+  </div>
+  <button class="edit" id="edit">Edit</button>
+</header>
+<main class="grid" id="grid"></main>
+
+<dialog id="dlg">
+  <h3>Password</h3>
+  <input type="password" id="pw" autocomplete="current-password">
+  <p class="err" id="err"></p>
+  <div class="row">
+    <button class="btn" id="ok">Open</button>
+    <button class="btn alt" id="cancel">Cancel</button>
+  </div>
+</dialog>
+
+<script src="config.js"></script>
+<script>
+const grid=document.getElementById("grid");
+async function load(){
+  let data={};
+  try{const r=await fetch("exams.json",{cache:"no-store"});data=await r.json()}catch(e){}
+  grid.innerHTML="";
+  SUBJECTS.forEach(s=>{
+    const exams=data[s.id]||[];
+    const c=document.createElement("section");
+    c.className="card";c.style.setProperty("--c",s.color);
+    const h=document.createElement("h2");
+    const ic=document.createElement("span");ic.className="ic";ic.textContent=s.icon;
+    const sm=document.createElement("small");sm.textContent=s.ar;
+    h.append(s.name,sm);
+    c.append(ic,h);
+    if(exams.length){
+      const ul=document.createElement("ul");ul.className="list";
+      exams.forEach(x=>{const li=document.createElement("li");const a=document.createElement("a");a.href=x.path;a.textContent=x.title;li.append(a);ul.append(li)});
+      c.append(ul);
+    }else{
+      const p=document.createElement("p");p.className="empty";p.textContent="مفيش امتحانات لسه";c.append(p);
+    }
+    grid.append(c);
+  });
+}
+load();
+
+const dlg=document.getElementById("dlg"),pw=document.getElementById("pw"),err=document.getElementById("err");
+async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+document.getElementById("edit").onclick=()=>{pw.value="";err.textContent="";dlg.showModal();pw.focus()};
+document.getElementById("cancel").onclick=()=>dlg.close();
+async function tryOpen(){
+  if(await sha(pw.value)===CONFIG.passHash){sessionStorage.setItem("admin_ok","1");location.href="admin.html"}
+  else err.textContent="الباسورد غلط";
+}
+document.getElementById("ok").onclick=tryOpen;
+pw.addEventListener("keydown",e=>{if(e.key==="Enter")tryOpen()});
+</script>
+</body>
+</html>
