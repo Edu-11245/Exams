@@ -1,9 +1,7 @@
-// غيّر القيم دي مرة واحدة بس
 window.CONFIG = {
-  owner: "YOUR_GITHUB_USERNAME",   // اسم حسابك على جيتهاب
-  repo: "YOUR_REPO_NAME",          // اسم الريبو
+  owner: "Edu-11245",   
+  repo: "Exams",          
   branch: "main",
-  // SHA-256 للباسورد. الباسورد الحالي: eto2026
   passHash: "e01ec3a9e4672a86db9bd73200783f9c92ec139361799e43b45c05420bf55caf"
 };
 window.SUBJECTS = [
