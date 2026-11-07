@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Biology - Lecture 3 Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#F6FBFA;--ink:#1F2A44;--mute:#5E6B8A;--line:#D5E6E2;--main:#17806C;--soft:#E4F7F2;--ok:#1E9E73;--okbg:#D9F7E9;--bad:#D6455D;--badbg:#FFE4E9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Readex Pro","Segoe UI",system-ui,"Noto Sans Arabic",Tahoma,sans-serif;padding:max(24px,env(safe-area-inset-top)) 16px max(60px,env(safe-area-inset-bottom));min-height:100vh;position:relative;overflow-x:hidden}
+
+/* خلفية متحركة */
+.blob{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none}
+.b1{width:400px;height:400px;background:#BFF2E6;top:-120px;right:-100px;animation:d1 17s ease-in-out infinite}
+.b2{width:360px;height:360px;background:#C9E4FF;bottom:-110px;left:-90px;animation:d2 20s ease-in-out infinite}
+.b3{width:300px;height:300px;background:#E1D6FF;top:42%;left:55%;animation:d3 23s ease-in-out infinite}
+@keyframes d1{50%{transform:translate(-90px,110px) scale(1.15)}}
+@keyframes d2{50%{transform:translate(110px,-90px) scale(1.1)}}
+@keyframes d3{50%{transform:translate(-120px,60px) scale(.9)}}
+
+main{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.back{display:inline-block;margin-bottom:14px;color:var(--mute);font-size:14px;text-decoration:none;border-bottom:1.5px solid var(--line)}
+.back:hover{color:var(--ink);border-color:var(--ink)}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.2;margin:0 0 6px;font-weight:800;background:linear-gradient(90deg,#17A58A,#4F8CFF,#9B6BFF,#17A58A);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+.sub{color:var(--mute);margin:0 0 22px}
+
+.card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 12px 32px rgba(40,90,100,.12);animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(28px) scale(.97)}}
+.top{display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:var(--mute);margin-bottom:8px}
+#sc.pop{animation:pop .4s}
+@keyframes pop{40%{transform:scale(1.35);color:var(--ok)}}
+.bar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3FD0B0,#4F8CFF);border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+
+.q{font-size:20px;font-weight:600;line-height:1.5;margin:0 0 18px;animation:slide .45s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slide{from{opacity:0;transform:translateX(30px)}}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:#fff;border:2px solid var(--line);border-radius:18px;padding:13px 16px;margin-bottom:10px;cursor:pointer;animation:slide .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k)*70ms + 80ms);transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+.opt:hover:not(:disabled){border-color:var(--main);background:var(--soft);transform:translateX(6px);box-shadow:0 6px 16px rgba(23,128,108,.15)}
+.opt:focus-visible,.btn:focus-visible,.back:focus-visible{outline:3px solid #4F8CFF;outline-offset:3px}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--ok);background:var(--okbg);animation:yes .5s}
+.opt.no{border-color:var(--bad);background:var(--badbg);animation:shake .45s}
+@keyframes yes{40%{transform:scale(1.04)}}
+@keyframes shake{20%{transform:translateX(-9px)}50%{transform:translateX(9px)}80%{transform:translateX(-5px)}}
+.k{display:inline-block;min-width:24px;font-weight:800;color:var(--main);opacity:.7}
+
+.exp{margin-top:8px;padding:14px 16px;border-radius:18px;background:var(--soft);border-right:5px solid var(--main);direction:rtl;text-align:right;font-size:15.5px;animation:fadeup .4s both}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}}
+
+.btn{font:inherit;font-weight:600;background:var(--main);color:#fff;border:0;border-radius:999px;padding:12px 28px;cursor:pointer;margin:18px 10px 0 0;transition:transform .2s,box-shadow .2s;animation:fadeup .4s both}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(23,128,108,.35)}
+.btn.alt{background:transparent;color:var(--main);border:2px solid var(--main)}
+.btn.alt:hover{box-shadow:none;background:var(--soft)}
+#go{animation:fadeup .4s both,beat 2s 1s ease-in-out infinite}
+@keyframes beat{50%{transform:scale(1.06)}}
+.hero{font-size:44px;display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(8deg)}}
+
+.score{font-size:54px;font-weight:800;color:var(--main);margin:2px 0;line-height:1.2}
+.rev{border-top:1px solid var(--line);padding:12px 0;font-size:15px;animation:fadeup .4s both}
+.rev b{display:block}
+.rev span{color:var(--ok)}
+.rev em{color:var(--bad);font-style:normal}
+[hidden]{display:none!important}
+
+.conf{position:fixed;top:-30px;z-index:5;font-size:26px;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(112vh) rotate(540deg);opacity:.9}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<main>
+<a class="back" href="../../subject.html?s=biology">Back to Biology</a>
+<h1>Biology: Lecture 3 Quiz</h1>
+<p class="sub">43 questions on the Golgi apparatus, mitochondria, peroxisomes, lysosomes and the acrosome. Questions are in English, explanations in Arabic.</p>
+
+<section class="card" id="start">
+<div class="hero" aria-hidden="true">🔬</div>
+<p class="q">Ready to test yourself?</p>
+<p class="sub">Options are shuffled every time. You see the answer and a short explanation after each question. Tip: press 1 to 4 to pick an option.</p>
+<button class="btn" id="go">Start quiz</button>
+</section>
+
+<section class="card" id="play" hidden>
+<div class="top"><span id="cnt"></span><span id="sc"></span></div>
+<div class="bar"><i id="pb"></i></div>
+<p class="q" id="qt"></p>
+<div id="opts"></div>
+<div class="exp" id="exp" hidden lang="ar"></div>
+<button class="btn" id="nx" hidden>Next question</button>
+</section>
+
+<section class="card" id="end" hidden>
+<p class="sub" style="margin:0">Your score</p>
+<div class="score" id="fs"></div>
+<p id="msg" class="sub"></p>
+<button class="btn" id="rw" hidden>Retry wrong answers</button>
+<button class="btn alt" id="ra">Restart all</button>
+<div id="rv" style="margin-top:18px"></div>
+</section>
+</main>
+
+<script>
+// [question, correct, wrong, wrong, wrong, explanation (Arabic)]
+const Q=[
+["Golgi apparatus is best described as a…", "membranous cell organelle", "non-membranous cell organelle", "layer outside the cell membrane", "part of the nucleus", "جهاز جولجي عضية غشائية، يعني ليها غشاء بيحيط بيها."],
+["With H&E stain, the Golgi apparatus appears as…", "a clear unstained area near the nucleus", "a darkly stained network of threads", "rounded or elongated green structures", "pink granules filling the cytoplasm", "في H&E جولجي مبيتصبغش، فبيبان كمنطقة فاتحة فاضية جنب النواة."],
+["Why is it called the “negative Golgi image”?", "We see the empty place of the Golgi, not the Golgi itself", "The Golgi carries a negative charge", "The Golgi is absent in these cells", "It appears only in dead cells", "سموها سالبة لأننا شايفين مكان جولجي الفاضي مش جولجي نفسه."],
+["Which stain shows the Golgi as a dark network near the nucleus?", "Silver stain", "H&E", "Janus green", "Iron hematoxylin", "صبغة الفضة (Silver) بتظهر جولجي نفسه كشبكة غامقة. Janus green للميتوكوندريا."],
+["By electron microscope, the Golgi apparatus consists of…", "Golgi stacks, transfer vesicles and secretory vesicles", "cristae, matrix and ribosomes", "outer membrane, inner membrane and matrix", "nuclear envelope, RER and lysosomes", "جولجي بالـ EM: Golgi stacks + transfer vesicles + secretory vesicles."],
+["The immature (cis) face of a Golgi stack is…", "convex and faces the RER", "concave and faces the RER", "convex and releases secretory vesicles", "concave and faces the cell membrane", "Cis = immature = convex وبيبص على الـ RER. Trans = mature = concave."],
+["Transfer vesicles (microvesicles) bud off from the…", "rough endoplasmic reticulum (RER)", "trans face of the Golgi", "mitochondria", "nuclear envelope", "الـ transfer vesicles بتتبرعم من الـ RER وتندمج مع الوجه cis."],
+["Secretory vesicles (macrovesicles) bud off from the…", "saccules of the trans face", "saccules of the cis face", "rough endoplasmic reticulum", "peroxisomes", "الـ secretory vesicles بتتبرعم من الوجه trans (المقعر الناضج)."],
+["Secretory vesicles carry either secretory proteins or…", "lysosomal enzymes (primary lysosomes)", "mitochondrial DNA", "hydrogen peroxide", "ATP synthase particles", "الحويصلة الإفرازية يا بروتينات إفرازية بتخرج بالـ exocytosis، يا إنزيمات ليسوسومية تبقى primary lysosomes."],
+["Which is NOT a function of the Golgi apparatus?", "ATP production", "Modification of proteins", "Packaging of proteins in vesicles", "Acrosome formation in developing sperm", "إنتاج الـ ATP شغل الميتوكوندريا. جولجي بيعدّل ويعبّي البروتينات ويكوّن الأكروسوم."],
+["The Golgi modifies proteins from the RER by adding…", "sulfates and carbohydrates", "DNA and RNA", "iron and heme", "hydrogen peroxide", "جولجي بيضيف sulfates وcarbohydrates للبروتينات."],
+["The name mitochondria comes from “mitos” and “chondros”, meaning…", "thread and granules", "energy and cell", "sac and membrane", "dissolve and body", "Mitos = خيط وChondros = حبيبات."],
+["Mitochondria are found in all cells EXCEPT…", "red blood corpuscles", "liver cells", "cardiac muscle cells", "nerve cells", "الميتوكوندريا في كل الخلايا ما عدا كرات الدم الحمراء."],
+["Which cells contain numerous mitochondria?", "Liver cells and cardiac muscle cells", "Red blood corpuscles", "Inactive cells", "Cells with no energy need", "الخلايا النشيطة جداً زي الكبد وعضلة القلب فيها ميتوكوندريا كتير."],
+["A large number of mitochondria causes what with H&E stain?", "Cytoplasmic acidophilia", "Negative image near the nucleus", "Cytoplasmic basophilia", "Clear unstained cytoplasm", "الميتوكوندريا الكتيرة بتخلي السيتوبلازم acidophilic (وردي) في H&E."],
+["With Janus green stain, mitochondria appear as…", "rounded or elongated structures", "a dark network of threads", "a clear area near the nucleus", "tiny yellow granules", "Janus green = ميتوكوندريا، بتبان مستديرة أو مستطيلة."],
+["What is the function of the cristae?", "Increase the surface area for more ATP production", "Store calcium only", "Make mitochondrial DNA", "Digest damaged organelles", "الـ cristae بتزود المساحة السطحية للغشاء الداخلي عشان ATP أكتر."],
+["Which of these is NOT found in the mitochondrial matrix?", "Catalase", "Mitochondrial DNA", "Ribosomes", "Enzymes of the citric acid cycle", "الـ catalase في البيروكسيسومات. الـ matrix فيها DNA وribosomes وإنزيمات citric acid cycle."],
+["Mitochondrial DNA is…", "a circular molecule", "a linear molecule wrapped on histones", "single-stranded RNA", "absent", "الـ DNA بتاع الميتوكوندريا جزيء دائري (circular)."],
+["Heme is produced in animal cells by the…", "mitochondria", "peroxisomes", "Golgi apparatus", "lysosomes", "إنتاج الـ heme من وظايف الميتوكوندريا (متعلّمة أصفر في الشريحة)."],
+["In mitochondrial inheritance, an affected mother and an unaffected father have…", "all children affected", "all children unaffected", "only affected sons", "only affected daughters", "الأم المصابة بتنقل لكل أولادها، ولاد وبنات."],
+["In mitochondrial inheritance, an affected father and an unaffected mother have…", "all children unaffected", "all children affected", "only affected sons", "only affected daughters", "الأب المصاب مبينقلش، لأن الميتوكوندريا بتيجي من الأم بس."],
+["Peroxisomes are also called…", "microbodies", "microvesicles", "macrovesicles", "saccules", "البيروكسيسومات اسمها كمان Microbodies."],
+["Oxidases in peroxisomes…", "synthesize hydrogen peroxide", "break down hydrogen peroxide", "digest bacteria", "produce ATP", "Oxidases بتصنع H2O2. Catalase هي اللي بتكسّره."],
+["Catalase breaks hydrogen peroxide into…", "water and oxygen", "carbon dioxide and water", "hydrogen and oxygen", "ATP and water", "H2O2 مع catalase بيبقى H2O + O2."],
+["Peroxisomal enzymes are synthesized on…", "free polyribosomes", "the RER", "the Golgi apparatus", "mitochondrial ribosomes", "إنزيمات البيروكسيسوم بتتصنع على free polyribosomes وبعدين بتدخل بمستقبلات على الغشاء."],
+["Peroxisomes are more numerous in…", "liver and kidney cells", "red blood corpuscles", "inactive cells only", "plasma cells only", "البيروكسيسومات أكتر في خلايا الكبد والكلى."],
+["Peroxisomes multiply by…", "simple division (fission)", "mitosis", "meiosis", "cell fusion", "بتتكاثر بالانقسام البسيط (fission)."],
+["Peroxisomes are the main source of which enzymes?", "D-amino oxidase, urate oxidase and catalase", "hydrolases, ATP synthase and DNA polymerase", "citric acid cycle enzymes only", "sulfotransferases and glycosyltransferases", "المصدر الرئيسي لـ 3 إنزيمات: D-amino oxidase وurate oxidase وcatalase."],
+["By electron microscope, peroxisomes appear as…", "small (0.5 µm) electron dense bodies with a single membrane", "bodies with two membranes and cristae", "stacks of flattened saccules", "networks of tubules covered with ribosomes", "بالـ EM: أجسام صغيرة 0.5 ميكرون كثيفة ومحاطة بغشاء واحد."],
+["In peroxisomes, the energy from fatty acid oxidation…", "comes out as heat and is not stored as ATP", "is stored as ATP", "is stored as glycogen", "is used to make DNA", "ملحوظة مهمة: الطاقة بتطلع حرارة ومش بتتخزن ATP. ده الفرق عن الميتوكوندريا."],
+["Which organelle performs detoxification of drugs and alcohol in the liver?", "Peroxisomes", "Golgi apparatus", "Centrioles", "Cristae", "إزالة سمية الأدوية والكحول وظيفة البيروكسيسومات في الكبد."],
+["Which is NOT listed as part of the endomembrane system in this lecture?", "Mitochondria", "Nuclear envelope", "Endoplasmic reticulum", "Golgi apparatus", "النظام الغشائي الداخلي: الغلاف النووي، الـ ER، جولجي، الليسوسومات والحويصلات. الميتوكوندريا مش من ضمنهم."],
+["The correct path of a secreted protein is…", "RER, transfer vesicles, cis face, trans face, secretory vesicles", "Golgi, RER, nucleus, cell membrane", "trans face, cis face, RER, transfer vesicles", "mitochondria, Golgi, RER, exocytosis", "البروتين بيتصنع على RER، يروح بـ transfer vesicles لوجه cis، يتعدل، يخرج من trans في secretory vesicles."],
+["Primary lysosomes arise from the…", "trans face of the Golgi apparatus", "mitochondria", "nuclear envelope", "centrioles", "الليسوسومات الأولية بتتكوّن من الوجه trans بتاع جولجي."],
+["Autolysis happens…", "at cell death, when lysosomal membranes rupture", "when the cell takes in bacteria", "only outside the cell", "when ATP is produced", "الهضم الذاتي عند موت الخلية: أغشية الليسوسومات بتتفجر والإنزيمات تهضم الخلية."],
+["Which is an example of extracellular digestion by lysosomal enzymes?", "Bone remodeling", "Tadpole tail loss", "Digesting damaged mitochondria", "Making hydrogen peroxide", "Extracellular: إعادة بناء العظم وأكروسوم الحيوان المنوي. ذيل أبو ذنيبة مثال autolysis."],
+["Heterophagy means digestion of…", "material from outside the cell taken by endocytosis", "damaged organelles from inside the cell", "the whole cell at death", "hydrogen peroxide", "Hetero = غريب، من برا الخلية وداخل بالـ endocytosis."],
+["Autophagy means digestion of…", "damaged organelles from inside the cell", "bacteria taken by endocytosis", "substances discharged outside the cell", "the egg surfaces", "Auto = النفس، عضيات تالفة من جوه الخلية."],
+["Hydrolytic enzymes are characteristic of…", "lysosomes", "peroxisomes", "the mitochondrial matrix", "centrioles", "الإنزيمات المحللة (hydrolases) بتاعة الليسوسومات مش البيروكسيسومات."],
+["The acrosome of the sperm is…", "a giant lysosome", "a giant mitochondrion", "a peroxisome", "part of the tail", "الأكروسوم هو ليسوسوم عملاق."],
+["The acrosome contains hydrolases that…", "break down the protective surfaces of the egg", "produce ATP for the tail", "synthesize hydrogen peroxide", "store calcium ions", "الـ hydrolases بتكسّر الأغلفة الواقية للبويضة."],
+["As the acrosome grows, the Golgi body of the sperm…", "becomes smaller and may disappear", "becomes larger", "divides into mitochondria", "turns into the tail", "كل ما الأكروسوم يكبر، جولجي بيصغر وممكن يختفي في كتير من الحيوانات المنوية الناضجة."]
+];
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let list,i,score,wrong,locked;
+const sh=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+function show(id){["start","play","end"].forEach(s=>{$(s).hidden=s!==id;if(s===id){$(s).style.animation="none";void $(s).offsetWidth;$(s).style.animation=""}})}
+function begin(qs){list=sh(qs);i=0;score=0;wrong=[];show("play");render()}
+function render(){
+  const q=list[i];locked=false;
+  $("cnt").textContent="Question "+(i+1)+" of "+list.length;
+  $("sc").textContent="Score: "+score;
+  $("pb").style.width=(i/list.length*100)+"%";
+  const qt=$("qt");qt.textContent=q[0];qt.style.animation="none";void qt.offsetWidth;qt.style.animation="";
+  $("exp").hidden=true;$("nx").hidden=true;
+  $("opts").innerHTML="";
+  sh(q.slice(1,5).map((t,k)=>({t,ok:k===0}))).forEach((o,k)=>{
+    const b=document.createElement("button");b.className="opt";b.style.setProperty("--k",k);
+    const n=document.createElement("span");n.className="k";n.textContent=(k+1)+".";
+    b.append(n,document.createTextNode(o.t));
+    b.onclick=()=>pick(b,o);b.dataset.ok=o.ok?1:0;
+    $("opts").appendChild(b)});
+}
+function pick(b,o){
+  if(locked)return;locked=true;
+  const q=list[i];
+  document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.dataset.ok==="1")x.classList.add("ok")});
+  if(o.ok){score++;$("sc").classList.remove("pop");void $("sc").offsetWidth;$("sc").classList.add("pop")}
+  else{b.classList.add("no");wrong.push({q,pick:b.textContent.replace(/^\d\./,"")})}
+  $("sc").textContent="Score: "+score;
+  $("pb").style.width=((i+1)/list.length*100)+"%";
+  $("exp").textContent=q[5];$("exp").hidden=false;
+  $("nx").textContent=i===list.length-1?"See results":"Next question";$("nx").hidden=false;$("nx").focus();
+}
+$("nx").onclick=()=>{i++;i<list.length?render():finish()};
+function countUp(el,to,total,p){
+  if(reduce){el.textContent=to+" / "+total+" ("+p+"%)";return}
+  let n=0;const step=()=>{el.textContent=n+" / "+total+" ("+Math.round(n/total*100)+"%)";if(n<to){n++;setTimeout(step,70)}else el.textContent=to+" / "+total+" ("+p+"%)"};step();
+}
+function confetti(){
+  if(reduce)return;
+  const em=["🎉","✨","🎊","⭐","🧬","🌟"];
+  for(let k=0;k<36;k++){
+    const s=document.createElement("span");s.className="conf";s.textContent=em[k%em.length];
+    s.style.left=Math.random()*100+"vw";s.style.animationDuration=(2.4+Math.random()*2.2)+"s";s.style.animationDelay=(Math.random()*.9)+"s";
+    document.body.appendChild(s);setTimeout(()=>s.remove(),6000);
+  }
+}
+function finish(){
+  show("end");const p=Math.round(score/list.length*100);
+  countUp($("fs"),score,list.length,p);
+  $("msg").textContent=p>=90?"Excellent. You know this lecture well.":p>=70?"Good. Review the questions you missed below.":"Keep going. Read the summary again, then retry the wrong answers.";
+  if(p>=70)confetti();
+  $("rw").hidden=!wrong.length;
+  $("rv").innerHTML=wrong.map(w=>'<div class="rev"><b></b><em></em><br><span></span></div>').join("");
+  [...$("rv").children].forEach((d,k)=>{const w=wrong[k];d.style.animationDelay=(k*60)+"ms";d.querySelector("b").textContent=w.q[0];d.querySelector("em").textContent="Your answer: "+w.pick;d.querySelector("span").textContent="Correct: "+w.q[1]});
+}
+$("go").onclick=()=>begin(Q);
+$("ra").onclick=()=>begin(Q);
+$("rw").onclick=()=>begin(wrong.map(w=>w.q));
+document.addEventListener("keydown",e=>{
+  if($("play").hidden)return;
+  if(e.key>="1"&&e.key<="4"){const b=document.querySelectorAll(".opt")[+e.key-1];if(b&&!b.disabled)b.click()}
+  else if(e.key==="Enter"&&!$("nx").hidden&&document.activeElement!==$("nx"))$("nx").click();
+});
+</script>
+</body>
+</html>
