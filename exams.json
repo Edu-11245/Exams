@@ -5,5 +5,12 @@
       "path": "exams/zoology/lec-1-exam.html",
       "date": "2026-11-06"
     }
+  ],
+  "bio": [
+    {
+      "title": "lec 3 cytology",
+      "path": "exams/bio/lec-3-cytology.html",
+      "date": "2026-11-07"
+    }
   ]
 }
